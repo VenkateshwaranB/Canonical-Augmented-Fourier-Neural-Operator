@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: CA-FNO3D
+message: If you use this software, please cite the accompanying paper.
+type: software
+authors:
+  - family-names: Venkateshwaran
+    given-names: B.
+  - family-names: Haque
+    given-names: A. K. M. Eahsanul
+  - family-names: Siddiqui
+    given-names: Numair Ahmed
+  - family-names: Ramachandran
+    given-names: Hariharan
+  - family-names: Ramkumar
+    given-names: Mu.
+  - family-names: Olutoki
+    given-names: John Oluwadamilola
+  - family-names: Yogi
+    given-names: Ida Bagus Suananda
+  - family-names: Salih
+    given-names: Ahmed Mousa
+license: MIT
+version: 1.0.0
+repository-code: https://github.com/VenkateshwaranB/Canonical-Augmented-Fourier-Neural-Operator
+doi: 10.5281/zenodo.22282607

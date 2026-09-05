@@ -10,8 +10,8 @@ on de-normalised displacement and pressure so units are consistent).
 Metrics per epoch: R2 for SG, SW, each displacement component, and pressure; overall
 and non-brine (plume) hysteresis accuracy. Best model by validation combined R2 is saved.
 
-    python train_pino.py --smoke                 # fast end-to-end check on real data
-    python train_pino.py --epochs 60 --tstride 3 # full run
+    python -m ca_fno3d.train --smoke                 # fast end-to-end check
+    python -m ca_fno3d.train --epochs 60 --tstride 3 # full run
 """
 from __future__ import annotations
 import os, json, time, argparse

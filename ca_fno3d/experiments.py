@@ -75,7 +75,7 @@ def run_one(tag, extra, epochs, tstride, batch, force=False):
     if os.path.exists(out_json) and not force:
         print(f"[experiments] {tag}: result exists, skipping (use --force to redo)")
         return True
-    # run as a module from the repo root: train_pino uses relative imports and
+    # run as a module from the repo root: train uses relative imports and
     # cannot be executed as a bare file path.
     cmd = [sys.executable, "-u", "-m", "ca_fno3d.train",
            "--epochs", str(epochs), "--tstride", str(tstride),

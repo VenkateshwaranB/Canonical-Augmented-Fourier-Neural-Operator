@@ -68,22 +68,21 @@ def run(pred_dir, field="pres", t_min=6, anchor=True, quiet=False):
     """Decompose every cached (realization, step) prediction of one field.
 
     `pred_dir` holds one NPZ per held-out realization with arrays
-    `pred_<field>` and `true_<field>` of shape (T, X, Y, Z) -- the layout
-    `export_predictions` writes.
+    `<FIELD>_pred` and `<FIELD>_true` of shape (T, X, Y, Z). The archived
+    predictions on Zenodo are in this layout.
     """
     import glob
     files = sorted(glob.glob(os.path.join(pred_dir, "*.npz")))
     if not files:
         raise SystemExit(
-            f"no cached predictions under {pred_dir}. Run "
-            "`python -m ca_fno3d.export_predictions` first, or pass --pred_dir.")
+            f"no cached predictions under {pred_dir}. Download the archived "
+            "predictions from Zenodo, set CAFNO_PRED_DIR, or pass --pred_dir.")
     idx = injector_flat_index() if anchor else None
 
     rows = []
     for f in files:
         d = np.load(f)
-        # export_predictions writes "<FIELD>_pred" / "<FIELD>_true"; accept the
-        # older "pred_<field>" spelling too so either archive can be read.
+        # accept the older "pred_<field>" spelling too, so either archive reads.
         key = FIELDS[field]
         pk, tk = f"{key}_pred", f"{key}_true"
         if pk not in d:

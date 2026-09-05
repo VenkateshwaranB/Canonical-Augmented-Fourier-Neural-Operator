@@ -50,8 +50,8 @@ def run(pred_dir="predictions", steps=None, thresholds=THRESHOLDS):
     import glob
     files = sorted(glob.glob(os.path.join(REPO, pred_dir, "*.npz")))
     if not files:
-        raise SystemExit(f"no predictions under {pred_dir}; "
-                         "run ca_fno3d.export_predictions first")
+        raise SystemExit(f"no predictions under {pred_dir}; download the "
+                         "archived predictions from Zenodo")
     rows = []
     for f in files:
         d = np.load(f)

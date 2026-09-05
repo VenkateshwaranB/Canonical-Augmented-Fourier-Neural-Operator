@@ -18,7 +18,7 @@ Input tensor : (B, C_in, X, Y, Z)   C_in = 8
   0 phi0   1 log10 k0   2 Young E   3 Poisson nu   4 lithofacies   5 injector mask
   6 time_norm (broadcast)          7 inj_rate (broadcast)
 
-The pressure stream lets the poroelastic-equilibrium residual (physics_segall.py)
+The pressure stream lets the poroelastic-equilibrium residual (physics.py)
 couple p to u, turning the surrogate into a physics-informed neural operator.
 """
 from __future__ import annotations
@@ -256,8 +256,8 @@ class PINOLoss(nn.Module):
 
     hys class weights counter the brine-dominated (~97%) class imbalance.
     """
-    def __init__(self, w_sat=1.0, w_hys=0.5, w_disp=0.7, w_pres=0.5, w_phys=0.1,
-                 hys_class_weights=None, plume_beta=20.0, plume_thresh=0.02):
+    def __init__(self, w_sat=1.0, w_hys=0.5, w_disp=1.2, w_pres=0.5, w_phys=0.1,
+                 hys_class_weights=None, plume_beta=40.0, plume_thresh=0.02):
         super().__init__()
         self.w_sat, self.w_hys = w_sat, w_hys
         self.w_disp, self.w_pres, self.w_phys = w_disp, w_pres, w_phys

@@ -4,7 +4,9 @@
 
 Uniaxial compaction, the derived vertical displacement, and the quasi-static
 equilibrium residual used as an optional loss term. Pressure and modulus must
-share a unit and displacement must match the grid spacing; see `units`.
+share a unit and displacement must match the grid spacing: `to_kpa` converts
+pressure and modulus together, and displacement is converted to metres before
+any strain is differenced.
 """
 from __future__ import annotations
 import numpy as np

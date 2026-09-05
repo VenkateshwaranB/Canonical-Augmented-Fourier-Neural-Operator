@@ -3,13 +3,17 @@
 """
 CA-FNO3D — dataset assembly for the FNO3D PINO.
 
-Loads the per-realization NPZ files produced by sr3_geomech_extractor.py, builds
+Loads the per-realization NPZ files produced by `extract`, builds
 (realization, timestep) samples, standardises the continuous inputs and the
 displacement/pressure targets, and returns torch tensors ready for training.
 
 Input channels (8), tensor (N, 8, X, Y, Z):
   0 phi0(z)  1 log10k0(z)  2 Young(z)  3 Poisson(z)
-  4 lithofacies/5  5 injector  6 time_norm  7 inj_rate
+  4 lithofacies/5  5 injector  6 time_norm  7 injection-active
+The eighth channel is a 0/1 indicator of whether the well is injecting, not a
+rate. The well is under bottomhole-pressure control, so the true rate varies
+between realisations and none of that variation reaches the operator. It is
+stored under the key `inj_rate` for backward compatibility with the archive.
 Targets:
   sat  (N,X,Y,Z,2)  SG,SW in [0,1]                (raw; sigmoid head)
   hys  (N,X,Y,Z)    class 0..4                     (int)
@@ -25,7 +29,7 @@ import torch
 from torch.utils.data import TensorDataset
 
 import os
-# Per-realization NPZ produced by sr3_geomech_extractor. Override with the
+# Per-realization NPZ produced by `extract`. Override with the
 # CAFNO_RAW_DIR environment variable; defaults to data/raw_npz in the repo.
 RAW_DIR = os.environ.get(
     "CAFNO_RAW_DIR",
@@ -102,7 +106,7 @@ def build_tensors(files, tsub, stats):
         inj = d["injector"]
         young_phys = d["young"].astype(np.float32); pois_phys = d["poisson"].astype(np.float32)
         p0_phys = d["PRES"][0].astype(np.float32)
-        tn = d["time_norm"]; ir = d["inj_rate"]
+        tn = d["time_norm"]; ir = d["inj_rate"]   # 0/1 injection-active indicator
         # decompress each dynamic array ONCE per file (indexing d[key] re-decompresses)
         SG = d["SG"]; SW = d["SW"]; HYSa = d["HYS"]
         UX = _z(d["UX"], stats["ux"]); UY = _z(d["UY"], stats["uy"])

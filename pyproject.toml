@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ca-fno3d"
+version = "1.0.0"
+description = "Fourier neural operator for coupled flow and poroelastic deformation in CO2 storage"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["numpy>=1.24", "scipy>=1.10", "torch>=2.0", "h5py>=3.8",
+                "matplotlib>=3.7", "pandas>=2.0", "tqdm>=4.65"]
+
+[project.urls]
+Repository = "https://github.com/VenkateshwaranB/Canonical-Augmented-Fourier-Neural-Operator"
+Archive = "https://doi.org/10.5281/zenodo.22282607"
+
+[tool.setuptools]
+packages = ["ca_fno3d"]
